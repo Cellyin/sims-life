@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>人生文字游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>人生文字游戏</h1>
+
+        <div class="status">
+            <p>年龄：{{ state.age }}</p>
+            <p>金钱：{{ state.money }}</p>
+            <p>健康：{{ state.health }}</p>
+        </div>
+
+        <form method="post">
+            <button type="submit">年龄 +1</button>
+        </form>
+
+        <div class="log">
+            {% for line in state.log|reverse %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
