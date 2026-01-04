@@ -9,22 +9,29 @@
     <div class="container">
         <h1>人生文字游戏</h1>
 
+        <!-- 状态展示 -->
         <div class="status">
-            <p>年龄：{{ state.age }}</p>
-            <p>金钱：{{ state.money }}</p>
-            <p>健康：{{ state.health }}</p>
-            <p>家庭背景：{{ state.family.wealth_tier }} | 兄弟姐妹：{{ state.family.siblings }} | 父母关系：{{ state.family.relationship_quality }}</p>
-            <p>自我认同：{{ state.personality.self_worth }}</p>
-            <p>社交比较：{{ state.personality.social_comparison }}</p>
-            <p>亲密欲望：{{ state.personality.intimacy_desire }}</p>
+            <p>年龄：{{ state['age'] }}</p>
+            <p>金钱：{{ state['money'] }}</p>
+            <p>健康：{{ state['health'] }}</p>
+            <p>关系状态：{{ state['relationship']['status'] }}</p>
+            <p>孩子数量：{{ len(state['children']) }}</p>
+            <p>债务：{{ state['debt'] }}</p>
         </div>
 
+        <!-- 游戏操作按钮 -->
         <form method="post">
             <button type="submit">年龄 +1</button>
         </form>
 
+        <!-- 重新开始按钮 -->
+        <form method="post" action="/restart">
+            <button type="submit">重新开始</button>
+        </form>
+
+        <!-- 日志展示 -->
         <div class="log">
-            {% for line in state.log|reverse %}
+            {% for line in state['log']|reverse %}
                 <p>{{ line }}</p>
             {% endfor %}
         </div>
