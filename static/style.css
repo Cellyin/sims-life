@@ -1,22 +1,56 @@
+/* 通用样式 */
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont;
-    background: #f6f6f6;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* 游戏容器样式 */
 .container {
-    max-width: 600px;
-    margin: 40px auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
 }
 
+/* 游戏标题 */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* 状态显示区 */
+.status, .log {
+    margin: 20px 0;
+}
+
+/* 按钮样式 */
 button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
     padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
     font-size: 16px;
 }
 
-.log {
-    margin-top: 20px;
-    color: #444;
+button:hover {
+    background-color: #45a049;
+}
+
+/* 日志显示样式 */
+.log p {
+    background-color: #e7f3e7;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
 }

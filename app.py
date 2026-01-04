@@ -5,8 +5,25 @@ app = Flask(__name__)
 
 # 角色状态初始化
 def reset_state():
+    # 随机生成名字
+    names = ["小明", "小红", "小蓝", "小绿", "小杨", "小李", "小王", "小赵"]
+    random_name = random.choice(names)
+
+    # 随机生成头像（根据年龄段）
+    def get_avatar(age):
+        if age < 7:
+            return "👶"  # 婴儿头像
+        elif age < 13:
+            return "👦"  # 小男孩头像
+        elif age < 18:
+            return "🧑‍🎓"  # 青少年头像
+        else:
+            return "👨‍💼"  # 成年人头像
+
     return {
         "age": 0,
+        "name": random_name,
+        "avatar": get_avatar(0),  # 初始头像为婴儿头像
         "money": 0,
         "health": 100,
         "stress": 10,
@@ -117,6 +134,19 @@ def add_year():
     state["age"] += 1
     state["health"] -= random.randint(0, 2)
     state["money"] += random.randint(-5, 10)
+
+    # 根据年龄更新头像
+    def get_avatar(age):
+        if age < 7:
+            return "👶"  # 婴儿头像
+        elif age < 13:
+            return "👦"  # 小男孩头像
+        elif age < 18:
+            return "🧑‍🎓"  # 青少年头像
+        else:
+            return "👨‍💼"  # 成年人头像
+    
+    state["avatar"] = get_avatar(state["age"])
 
     # 事件处理
     if state["age"] <= 6:
