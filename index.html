@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>人生文字游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>人生文字游戏</h1>
+
+        <div class="status">
+            <p>年龄：{{ state.age }}</p>
+            <p>金钱：{{ state.money }}</p>
+            <p>健康：{{ state.health }}</p>
+            <p>家庭背景：{{ state.family.wealth_tier }} | 兄弟姐妹：{{ state.family.siblings }} | 父母关系：{{ state.family.relationship_quality }}</p>
+            <p>自我认同：{{ state.personality.self_worth }}</p>
+            <p>社交比较：{{ state.personality.social_comparison }}</p>
+            <p>亲密欲望：{{ state.personality.intimacy_desire }}</p>
+        </div>
+
+        <form method="post">
+            <button type="submit">年龄 +1</button>
+        </form>
+
+        <div class="log">
+            {% for line in state.log|reverse %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
