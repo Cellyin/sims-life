@@ -1,15 +1,17 @@
 import random
 from flask import Flask, render_template, request, redirect, url_for
+import logging
 
 app = Flask(__name__)
 
+# 设置日志输出
+logging.basicConfig(level=logging.DEBUG)
+
 # 角色状态初始化
 def reset_state():
-    # 随机生成名字
     names = ["小明", "小红", "小蓝", "小绿", "小杨", "小李", "小王", "小赵"]
     random_name = random.choice(names)
 
-    # 随机生成头像（根据年龄段）
     def get_avatar(age):
         if age < 7:
             return "👶"  # 婴儿头像
@@ -20,10 +22,10 @@ def reset_state():
         else:
             return "👨‍💼"  # 成年人头像
 
-    return {
+    state = {
         "age": 0,
         "name": random_name,
-        "avatar": get_avatar(0),  # 初始头像为婴儿头像
+        "avatar": get_avatar(0),
         "money": 0,
         "health": 100,
         "stress": 10,
@@ -49,8 +51,10 @@ def reset_state():
             "year_lines": [],
             "key_choices": [],
             "themes_counter": {}
-        }
+        },
+        "log": []  # 确保 log 键存在并初始化为空列表
     }
+    return state
 
 # 初始化游戏状态
 state = reset_state()
@@ -189,14 +193,22 @@ def add_year():
 # 处理年度结算
 @app.route("/", methods=["GET", "POST"])
 def index():
+    app.logger.debug("Entering index function")
+    
     if request.method == "POST":
-        add_year()
+        try:
+            add_year()
+        except Exception as e:
+            app.logger.error(f"Error during year update: {e}")
+            return "Error during game update.", 500
         return redirect(url_for("index"))
+    
+    app.logger.debug(f"State at index: {state}")
     return render_template("index.html", state=state)
 
-# 重新开始游戏
 @app.route("/restart", methods=["POST"])
 def restart():
+    app.logger.debug("Restarting the game")
     global state
     state = reset_state()  # 重置游戏状态
     return redirect(url_for("index"))
