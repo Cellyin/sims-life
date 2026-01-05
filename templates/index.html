@@ -15,7 +15,8 @@
             <p>金钱：{{ state['money'] }}</p>
             <p>健康：{{ state['health'] }}</p>
             <p>关系状态：{{ state['relationship']['status'] }}</p>
-            <p>孩子数量：{{ len(state['children']) }}</p>
+            <!-- 使用默认空列表避免报错 -->
+            <p>孩子数量：{{ state['children'] | default([]) | length }}</p>
             <p>债务：{{ state['debt'] }}</p>
         </div>
 
